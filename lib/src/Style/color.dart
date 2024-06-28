@@ -20,6 +20,7 @@ class AppCommonColors{
 ///TextColors
 class AppTextColors {
   static const Color red = Colors.red;
+  static const Color green = Colors.green;
   static const Color transparent = Color(0x00000000);
   static Color get black =>  const Color(0xff000000);
   static const Color lightBlack = Color(0xff505050);

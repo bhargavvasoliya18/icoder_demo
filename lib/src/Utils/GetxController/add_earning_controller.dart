@@ -22,7 +22,7 @@ class AddEarningController extends GetxController{
   }
 
   updateEarning()async{
-    TransactionModel transactionModel = TransactionModel(id: Get.put(TransactionController()).selectTransaction.id, transactionType: 0, description: addExpenseDescriptionController.text, transactionDate: addExpenseDateTimeController.text, transactionAmount: double.parse(addExpenseAmountController.text), openBalance: 0, closingBalance: 0, createdAt: DateTime.now().toString());
+    TransactionModel transactionModel = TransactionModel(id: Get.put(TransactionController()).selectTransaction.id, transactionType: 1, description: addExpenseDescriptionController.text, transactionDate: addExpenseDateTimeController.text, transactionAmount: double.parse(addExpenseAmountController.text), openBalance: 0, closingBalance: 0, createdAt: DateTime.now().toString());
     var res = await dbHelper.updateTransaction(transactionModel);
     if(res != null && res != 0) {
       Get.put(TransactionController()).loadTransactions();

@@ -70,8 +70,8 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
                               children: [
                                 ListTile(
                                   title: Text(transaction.description.toString()),
-                                  subtitle: Text(transaction.transactionDate.toString(), style: TextStyleTheme.customTextStyle(transaction.transactionType == 0 ? AppTextColors.black : AppTextColors.red, 14, FontWeight.w500),),
-                                  trailing: Text(transaction.transactionAmount.toString()),
+                                  subtitle: Text(transaction.transactionDate.toString()),
+                                  trailing: Text(transaction.transactionAmount.toString(), style: TextStyleTheme.customTextStyle(transaction.transactionType == 0 ? AppTextColors.green : AppTextColors.red, 14, FontWeight.w500),),
                                   onTap: () { },
                                 ),
                                 Padding(

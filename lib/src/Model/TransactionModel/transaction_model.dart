@@ -21,27 +21,27 @@ class TransactionModel {
 
   Map<String, dynamic> toMap() {
     return {
-      'id': id ?? "",
-      'transaction_type': transactionType ?? "",
-      'description': description ?? "",
-      'transaction_date': transactionDate ?? "",
-      'transaction_amount': transactionAmount ?? "",
-      'open_balance': openBalance ?? "",
-      'closing_balance': closingBalance ?? "",
-      'created_at': createdAt ?? "",
+      'id': id,
+      'transaction_type': transactionType,
+      'description': description,
+      'transaction_date': transactionDate,
+      'transaction_amount': transactionAmount,
+      'open_balance': openBalance,
+      'closing_balance': closingBalance,
+      'created_at': createdAt,
     };
   }
 
   static TransactionModel fromMap(Map<String, dynamic> map) {
     return TransactionModel(
-      id: map['id'] ?? "",
-      transactionType: map['transaction_type'] ?? "",
-      description: map['description'] ?? "",
-      transactionDate: map['transaction_date'] ?? "",
-      transactionAmount: map['transaction_amount'] ?? "",
-      openBalance: map['open_balance'] ?? "",
-      closingBalance: map['closing_balance'] ?? "",
-      createdAt: map['created_at'] ?? "",
+      id: map['id'],
+      transactionType: map['transaction_type'],
+      description: map['description'],
+      transactionDate: map['transaction_date'],
+      transactionAmount: map['transaction_amount'],
+      openBalance: map['open_balance'],
+      closingBalance: map['closing_balance'],
+      createdAt: map['created_at'],
     );
   }
 }
