@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-customCalender(selectDate, String selectDay, {Offset? offset, Function(DateTime, DateTime)? onTapDateSelect}){
+customCalender({Function(DateTime, DateTime)? onTapDateSelect}){
   return showDialog(
       context: Get.context!,
       useSafeArea: false,
@@ -24,18 +24,10 @@ customCalender(selectDate, String selectDay, {Offset? offset, Function(DateTime,
                     child: Padding(
                       padding: const EdgeInsets.all(25),
                       child: TableCalendar(
-                        selectedDayPredicate: (day) {
-                          return isSameDay(selectDate, day);
-                        },
                         calendarFormat: CalendarFormat.month,
                         onDaySelected: (selectedDay, focusedDay) {
                           onTapDateSelect?.call(selectedDay, focusedDay);
                         },
-                        /*onDaySelected: (selectedDay, focusedDay) {
-                          selectDate = selectedDay;
-                          selectDay = DateUtilforpass().formattedDate(DateTime.parse(selectDate.toString()));
-                          Navigator.pop(context);
-                        },*/
                         daysOfWeekStyle: DaysOfWeekStyle(
                             weekdayStyle: TextStyleTheme.customTextStyle(AppTextColors.black, 12, FontWeight.w400)
                         ),

@@ -61,6 +61,7 @@ class AppBgColors{
   static const Color hauteColor = Color(0xFFFDBC11);
   static const Color midGrey = Color(0xff4B4B4B);
   static const Color red = Colors.red;
+  static const Color blue = Colors.blue;
 }
 
 ///IconColors

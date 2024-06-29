@@ -1,4 +1,5 @@
 import 'package:bhargav_practicle/src/Constants/app_date_formate.dart';
+import 'package:bhargav_practicle/src/Controller/AlertController/toast_measse.dart';
 import 'package:bhargav_practicle/src/Element/textfield_controller.dart';
 import 'package:bhargav_practicle/src/Model/TransactionModel/transaction_model.dart';
 import 'package:bhargav_practicle/src/Utils/GetxController/transaction_controller.dart';
@@ -12,12 +13,28 @@ class AddExpenseController extends GetxController{
   var focusNode = <FocusNode>[FocusNode(), FocusNode(), FocusNode()].obs;
 
   addAndEditExpense()async{
-    TransactionModel transactionModel = TransactionModel(transactionType: 0, description: addExpenseDescriptionController.text, transactionDate: addExpenseDateTimeController.text, transactionAmount: double.parse(addExpenseAmountController.text), openBalance: 0, closingBalance: 0, createdAt: DateTime.now().toString());
-   var res = await dbHelper.addTransaction(transactionModel);
-   if(res != null && res != 0) {
-     Get.put(TransactionController()).loadTransactions();
-     Get.back();
-   }
+    FocusScope.of(Get.context!).requestFocus(FocusNode());
+    if(addExpenseDescriptionController.text.isNotEmpty &&  addExpenseDateTimeController.text.isNotEmpty && addExpenseAmountController.text.isNotEmpty){
+      TransactionModel transactionModel = TransactionModel(transactionType: 0, description: addExpenseDescriptionController.text, transactionDate: addExpenseDateTimeController.text, transactionAmount: double.parse(addExpenseAmountController.text), openBalance: 0, closingBalance: 0, createdAt: DateTime.now().toString());
+      var res = await dbHelper.addTransaction(transactionModel);
+      if(res != null && res != 0) {
+        Get.put(TransactionController()).loadTransactions();
+        Get.back();
+      }
+    }else {
+      var msg = "";
+      if(addExpenseDescriptionController.text.isEmpty && addExpenseAmountController.text.isEmpty && addExpenseDateTimeController.text.isEmpty){
+        msg = "All field is required";
+      }
+      else if(addExpenseDescriptionController.text.isEmpty){
+        msg = "Description field is required";
+      }else if(addExpenseAmountController.text.isEmpty){
+        msg = "Amount field is required";
+      }else if(addExpenseDateTimeController.text.isEmpty){
+        msg = "Date field is required";
+      }
+      toastMessage(msg);
+    }
   }
 
   updateExpense()async{

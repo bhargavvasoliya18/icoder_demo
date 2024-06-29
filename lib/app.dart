@@ -1,4 +1,6 @@
 import 'package:bhargav_practicle/src/Page/LoginScreen/login_screen.dart';
+import 'package:bhargav_practicle/src/Page/TransactionsScreen/transactions_screen.dart';
+import 'package:bhargav_practicle/src/Utils/GetxController/login_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -17,7 +19,7 @@ class MyApp extends StatelessWidget {
       home: Builder(
           builder: (BuildContext context){
             ScreenUtil.init(context);
-            return LoginScreen();
+            return getStore.read("isLogin") ?? false ? const TransactionsScreen() : LoginScreen();
           },
       ),
     );

@@ -1,6 +1,10 @@
+import 'package:bhargav_practicle/src/Constants/app_images.dart';
+import 'package:bhargav_practicle/src/Controller/AlertController/delete_expesne_dialog.dart';
 import 'package:bhargav_practicle/src/Element/padding_class.dart';
 import 'package:bhargav_practicle/src/Page/AddEarningScreen/add_earning_screen.dart';
 import 'package:bhargav_practicle/src/Page/AddExpenseScreen/add_expense_screen.dart';
+import 'package:bhargav_practicle/src/Page/ProfileScreen/profile_screen.dart';
+import 'package:bhargav_practicle/src/Page/TransactionsScreen/Module/filter_view.dart';
 import 'package:bhargav_practicle/src/Style/color.dart';
 import 'package:bhargav_practicle/src/Style/text_style.dart';
 import 'package:bhargav_practicle/src/Utils/GetxController/transaction_controller.dart';
@@ -33,13 +37,32 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Transactions")),
+      appBar: AppBar(title: const Text("Transactions"), actions: [
+        Padding(
+          padding: const EdgeInsets.only(right: 15),
+          child: GestureDetector(
+              onTap: (){navigatePush(const ProfileScreen());},
+              child: Image.asset(AppImages.userIcon, height: 25, width: 25, color: AppIconColors.white,)),
+        )
+      ],),
       body: SingleChildScrollView(
         child: Obx(() {
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Column(
               children: [
+                paddingTop(15),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                    Text("Filter", style: TextStyleTheme.customTextStyle(AppTextColors.black, 16, FontWeight.w500),),
+                    GestureDetector(
+                        onTap: (){filterView();},
+                        child: Image.asset(AppImages.filterIcon, height: 30, width: 30,))
+                  ],),
+                ),
                 paddingTop(15),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -53,10 +76,9 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
                 SizedBox(
                   height: ScreenUtil().screenHeight / 1.22,
                   child: ListView.builder(
-                    itemCount: transactionController.transactions.length,
-                    // reverse: true,
+                    itemCount: transactionController.filterTransactionsList.isNotEmpty ? transactionController.filterTransactionsList.length : transactionController.transactions.length,
                     itemBuilder: (context, index) {
-                      final transaction = transactionController.transactions[index];
+                      final transaction = transactionController.filterTransactionsList.isNotEmpty ? transactionController.filterTransactionsList[index] : transactionController.transactions[index];
                       return Padding(
                         padding: const EdgeInsets.only(top: 10),
                         child: Container(
@@ -71,7 +93,13 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
                                 ListTile(
                                   title: Text(transaction.description.toString()),
                                   subtitle: Text(transaction.transactionDate.toString()),
-                                  trailing: Text(transaction.transactionAmount.toString(), style: TextStyleTheme.customTextStyle(transaction.transactionType == 0 ? AppTextColors.green : AppTextColors.red, 14, FontWeight.w500),),
+                                  trailing: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(transaction.transactionType == 0 ? "Expense" : "Earning", style: TextStyleTheme.customTextStyle(transaction.transactionType == 0 ? AppTextColors.red : AppTextColors.green, 14, FontWeight.w500),),
+                                      Text(transaction.transactionAmount.toString(), style: TextStyleTheme.customTextStyle(transaction.transactionType == 0 ? AppTextColors.red : AppTextColors.green, 14, FontWeight.w500),),
+                                    ],
+                                  ),
                                   onTap: () { },
                                 ),
                                 Padding(
@@ -81,7 +109,7 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
                                     children: [
                                       Expanded(child: customButton("Edit", onTap: (){transactionController.navigateEditExpenseScreen(transaction);})),
                                       paddingLeft(15),
-                                      Expanded(child: customButton("Delete", buttonColor: AppBgColors.red, borderColor: AppBorderColors.transparent, buttonTitleColor: AppTextColors.textWhite, onTap: (){transactionController.deleteTransaction(transaction.id ?? 0);}))
+                                      Expanded(child: customButton("Delete", buttonColor: AppBgColors.red, borderColor: AppBorderColors.transparent, buttonTitleColor: AppTextColors.textWhite, onTap: (){showDeleteDialog(context, onTapDelete: (){transactionController.deleteTransaction(transaction.id ?? 0); Get.back();});}))
                                     ],
                                   ),
                                 )

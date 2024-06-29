@@ -1,4 +1,5 @@
 import 'package:bhargav_practicle/src/Constants/app_date_formate.dart';
+import 'package:bhargav_practicle/src/Controller/AlertController/toast_measse.dart';
 import 'package:bhargav_practicle/src/Element/textfield_controller.dart';
 import 'package:bhargav_practicle/src/Model/TransactionModel/transaction_model.dart';
 import 'package:bhargav_practicle/src/Utils/GetxController/transaction_controller.dart';
@@ -12,13 +13,29 @@ class AddEarningController extends GetxController{
   var focusNode = <FocusNode>[FocusNode(), FocusNode(), FocusNode()].obs;
 
   addAndEditEarning()async{
-    print("add earning button call");
-    TransactionModel transactionModel = TransactionModel(transactionType: 1, description: addEarningDescriptionController.text, transactionDate: addEarningDateTimeController.text, transactionAmount: double.parse(addEarningAmountController.text), openBalance: 0, closingBalance: 0, createdAt: DateTime.now().toString());
-    var res = await dbHelper.addTransaction(transactionModel);
-    // if(res != null && res != 0) {
-      Get.put(TransactionController()).loadTransactions();
-      Get.back();
-    // }
+    FocusScope.of(Get.context!).requestFocus(FocusNode());
+    if(addEarningDescriptionController.text.isNotEmpty && addEarningDateTimeController.text.isNotEmpty && addEarningAmountController.text.isNotEmpty){
+      TransactionModel transactionModel = TransactionModel(transactionType: 1, description: addEarningDescriptionController.text, transactionDate: addEarningDateTimeController.text, transactionAmount: double.parse(addEarningAmountController.text), openBalance: 0, closingBalance: 0, createdAt: DateTime.now().toString());
+      var res = await dbHelper.addTransaction(transactionModel);
+      if(res != null && res != 0) {
+        Get.put(TransactionController()).loadTransactions();
+        Get.back();
+      }
+    }else{
+      var msg = "";
+      if(addEarningDescriptionController.text.isEmpty && addEarningAmountController.text.isEmpty && addEarningDateTimeController.text.isEmpty){
+        msg = "All field is required";
+      }
+      else if(addEarningDescriptionController.text.isEmpty){
+        msg = "Description field is required";
+      }else if(addEarningAmountController.text.isEmpty){
+        msg = "Amount field is required";
+      }else if(addEarningDateTimeController.text.isEmpty){
+        msg = "Date field is required";
+      }
+      toastMessage(msg);
+    }
+
   }
 
   updateEarning()async{

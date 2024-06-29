@@ -7,6 +7,7 @@ var orderFormat = DateFormat('dd.MM.yyyy');
 var upcomingFormat = DateFormat('dd MMM yyyy');
 var timeFormat = DateFormat('hh:mm a');
 var cartOrderFormat = DateFormat('yyyy-MM-ddTHH:mm:ss+0000');
+var dateMonthFormat = DateFormat("dd/MM/yyyy");
 
 class DateUtilforpass {
   static const dateFormat = 'dd/MM/yyyy';

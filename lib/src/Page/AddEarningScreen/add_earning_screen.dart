@@ -50,7 +50,7 @@ class _AddEarningScreenState extends State<AddEarningScreen> {
               customTextField("Amount", addEarningAmountController, (val) => null, addEarningController.focusNode[1], TextInputAction.done, TextInputType.number, "Enter amount", context),
               paddingTop(15),
               GestureDetector(
-                  onTap: (){customCalender(DateTime.now(), "", onTapDateSelect: (selectDate, focusDate){addEarningController.selectDate(selectDate, focusDate);});},
+                  onTap: (){customCalender(onTapDateSelect: (selectDate, focusDate){addEarningController.selectDate(selectDate, focusDate);});},
                   child: customTextField("Date Time", addEarningDateTimeController, (val) => null, addEarningController.focusNode[2], TextInputAction.next, TextInputType.text, "Select date", context, onTap: (){}, readOnly: true)),
               paddingTop(35),
               customButton(transactionController.isEditExpense.value ? "Edit Earning" : "Add Earning", onTap: (){Get.put(TransactionController()).isEditEarning.value ? addEarningController.updateEarning() : addEarningController.addAndEditEarning();}, width: ScreenUtil().screenWidth / 2, buttonColor: Colors.blue, buttonTitleColor: AppTextColors.textWhite, borderColor: Colors.transparent)

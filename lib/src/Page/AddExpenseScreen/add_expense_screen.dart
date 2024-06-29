@@ -50,7 +50,7 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
               customTextField("Amount", addExpenseAmountController, (val) => null, addExpenseController.focusNode[1], TextInputAction.done, TextInputType.number, "Enter amount", context),
               paddingTop(15),
               GestureDetector(
-                  onTap: (){customCalender(DateTime.now(), "", onTapDateSelect: (selectDate, focusDate){addExpenseController.selectDate(selectDate, focusDate);});},
+                  onTap: (){customCalender(onTapDateSelect: (selectDate, focusDate){addExpenseController.selectDate(selectDate, focusDate);});},
                   child: customTextField("Date Time", addExpenseDateTimeController, (val) => null, addExpenseController.focusNode[2], TextInputAction.next, TextInputType.text, "Select date", context, onTap: (){}, readOnly: true)),
               paddingTop(35),
               customButton(transactionController.isEditExpense.value ? "Edit Expense" : "Add Expense", onTap: (){Get.put(TransactionController()).isEditExpense.value ? addExpenseController.updateExpense() : addExpenseController.addAndEditExpense();}, width: ScreenUtil().screenWidth / 2, buttonColor: Colors.blue, buttonTitleColor: AppTextColors.textWhite, borderColor: Colors.transparent)

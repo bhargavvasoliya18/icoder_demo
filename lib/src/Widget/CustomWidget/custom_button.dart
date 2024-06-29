@@ -21,3 +21,21 @@ Widget customButton(String buttonTitle, {double? height, double? width, Color? b
     ),
   );
 }
+
+Widget roundBorderDialogButton(String title, {VoidCallback? onTap, double? height, double? width}){
+  return GestureDetector(
+      onTap: onTap,
+      child: Container(
+          width: width ?? 120, height: height ?? 50,
+          decoration: BoxDecoration(borderRadius: BorderRadius.circular(25), border: Border.all(color: AppBgColors.black.withOpacity(0.4))),
+          child: Center(child: Text(title, style: TextStyleTheme.customTextStyle(AppTextColors.black, 16, FontWeight.w500)))));
+}
+
+Widget backGroundColorDialogButton(String title, {VoidCallback? onTap, double? height, double? width}){
+  return GestureDetector(
+      onTap: onTap,
+      child: Container(
+          width: width ?? 120, height: height ?? 50,
+          decoration: BoxDecoration(color: AppBgColors.blue, borderRadius: BorderRadius.circular(25),),
+          child: Center(child: Text(title, style: TextStyleTheme.customTextStyle(AppTextColors.textWhite, 16, FontWeight.w500),))));
+}

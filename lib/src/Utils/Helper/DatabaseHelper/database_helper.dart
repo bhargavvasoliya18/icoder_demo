@@ -67,6 +67,22 @@ class DatabaseHelper {
     );
   }
 
+  Future<Database> getDatabase() async {
+    return await openDatabase(
+      '$transactionTableName.db',
+      version: 1,
+      onCreate: (db, version) {
+        // Table creation code here
+      },
+    );
+  }
+
+  Future<void> clearTable() async {
+    final db = await getDatabase();
+    await db.execute('DELETE FROM $transactionTableName;');
+    print('Table cleared');
+  }
+
   Future<List<TransactionModel>> getTransactions() async {
     Database db = await database;
     final List<Map<String, dynamic>> maps = await db.query(transactionTableName);
